@@ -9,10 +9,16 @@ RUN a2enmod rewrite
 
 WORKDIR /var/www/html
 
-COPY app/ /var/www/
+COPY app/public/ /var/www/html/
+COPY app/src/ /var/www/src/
 COPY VERSION /var/www/VERSION
+COPY docker-entrypoint.sh /usr/local/bin/homelab-entrypoint
 
-RUN mkdir -p /var/www/data \
-    && chown -R www-data:www-data /var/www/data /var/www/html
+RUN chmod +x /usr/local/bin/homelab-entrypoint \
+    && mkdir -p /var/www/data \
+    && chown -R www-data:www-data /var/www/data /var/www/html /var/www/src
 
 EXPOSE 80
+
+ENTRYPOINT ["/usr/local/bin/homelab-entrypoint"]
+CMD ["apache2-foreground"]
