@@ -2,11 +2,11 @@
 
 A lightweight self-hosted dashboard for a home lab, household bills, services, media links, and server status.
 
-## v0.1.0
+## v0.2.0
 
 Initial foundation includes:
 
-- Responsive compact dashboard
+- Responsive compact dashboard\n- Settings page for app URLs, API keys/tokens, credentials and integration enable/disable
 - Dark/light theme
 - Household bill tracking with paid/unpaid status
 - Monthly totals and upcoming due bills
