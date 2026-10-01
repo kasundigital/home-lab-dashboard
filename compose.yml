@@ -1,6 +1,6 @@
 services:
   homelab-dashboard:
-    build: .
+    image: ghcr.io/kasundigital/home-lab-dashboard:latest
     container_name: homelab-dashboard
     restart: unless-stopped
     ports:
