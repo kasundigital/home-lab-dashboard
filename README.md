@@ -18,6 +18,17 @@ Initial foundation includes:
 
 ## Quick start
 
+### One-command install
+
+Run this from any directory. The installer uses absolute paths and does not depend on your current working directory.
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/kasundigital/home-lab-dashboard/main/install.sh | sudo bash
+```
+
+It installs/updates the dashboard under `/home/docker/homelab` and preserves `/home/docker/homelab/data`.
+
+
 ### Recommended: prebuilt Docker image
 
 No Git clone or local build is required.
