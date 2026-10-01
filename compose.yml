@@ -1,0 +1,12 @@
+services:
+  homelab-dashboard:
+    build: .
+    container_name: homelab-dashboard
+    restart: unless-stopped
+    ports:
+      - "${APP_PORT:-8088}:80"
+    environment:
+      TZ: ${TZ:-Asia/Colombo}
+      APP_NAME: ${APP_NAME:-Home Lab Dashboard}
+    volumes:
+      - ./data:/var/www/data
