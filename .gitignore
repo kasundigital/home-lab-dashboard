@@ -1,0 +1,6 @@
+.env
+data/*.sqlite
+data/*.sqlite-*
+data/*.db
+.DS_Store
+Thumbs.db
