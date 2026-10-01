@@ -102,7 +102,7 @@ $appName = getenv('APP_NAME') ?: 'Home Lab Dashboard';
             <a class="active" href="#overview">Overview</a>
             <a href="#bills">Bills</a>
             <a href="#services">Services</a>
-            <a href="#server">Server</a>
+            <a href="#server">Server</a>\n            <a href="/settings.php">Settings</a>
         </nav>
         <div class="sidebar-footer">v<?= h(app_version()) ?></div>
     </aside>
