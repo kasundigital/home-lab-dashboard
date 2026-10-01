@@ -18,12 +18,31 @@ Initial foundation includes:
 
 ## Quick start
 
+### Recommended: prebuilt Docker image
+
+No Git clone or local build is required.
+
 ```bash
-mkdir -p /home/docker/homelab
+mkdir -p /home/docker/homelab/data
 cd /home/docker/homelab
-git clone https://github.com/kasundigital/home-lab-dashboard.git .
-cp .env.example .env
-docker compose up -d --build
+
+cat > compose.yml <<'EOF'
+services:
+  homelab-dashboard:
+    image: ghcr.io/kasundigital/home-lab-dashboard:latest
+    container_name: homelab-dashboard
+    restart: unless-stopped
+    ports:
+      - "8088:80"
+    environment:
+      TZ: Asia/Colombo
+      APP_NAME: Home Lab Dashboard
+    volumes:
+      - ./data:/var/www/data
+EOF
+
+docker compose pull
+docker compose up -d
 ```
 
 Open:
@@ -31,6 +50,31 @@ Open:
 ```text
 http://SERVER_IP:8088
 ```
+
+### Docker run
+
+```bash
+mkdir -p /home/docker/homelab/data
+
+docker run -d \
+  --name homelab-dashboard \
+  --restart unless-stopped \
+  -p 8088:80 \
+  -e TZ=Asia/Colombo \
+  -e APP_NAME="Home Lab Dashboard" \
+  -v /home/docker/homelab/data:/var/www/data \
+  ghcr.io/kasundigital/home-lab-dashboard:latest
+```
+
+### Update
+
+```bash
+cd /home/docker/homelab
+docker compose pull
+docker compose up -d
+```
+
+The GitHub Actions workflow automatically builds and publishes multi-architecture images for `linux/amd64` and `linux/arm64` to GitHub Container Registry after pushes to `main` and version tags.
 
 Default local deployment does not expose the database outside the container stack.
 
