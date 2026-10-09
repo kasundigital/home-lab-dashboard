@@ -21,4 +21,13 @@
   document.querySelectorAll('[data-dialog-close]').forEach((button) => {
     button.addEventListener('click', () => button.closest('dialog')?.close());
   });
+
+  // Keep the daily dashboard fresh (new bills from n8n, Telegram messages) without
+  // interrupting a dialog or a half-typed form.
+  if (document.body.dataset.autoRefresh) {
+    setInterval(() => {
+      const busy = document.querySelector('dialog[open]') || document.activeElement?.matches('input,textarea,select');
+      if (!document.hidden && !busy) location.reload();
+    }, Number(document.body.dataset.autoRefresh) * 1000);
+  }
 })();

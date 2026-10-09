@@ -33,3 +33,25 @@ dialog{border:0;padding:0;background:transparent;color:var(--text);width:min(680
 .settings-note{padding:14px}.settings-note strong{display:block;margin-bottom:4px}.settings-note p{margin:0;color:var(--muted)}
 @media(max-width:980px){.integration-grid{grid-template-columns:1fr}}
 @media(max-width:600px){.settings-form{grid-template-columns:1fr}.settings-form label.full{grid-column:auto}.integration-head{align-items:center}.settings-actions{flex-wrap:wrap}}
+
+/* v0.3 bills: red = to pay, green = paid */
+.badge.overdue{background:color-mix(in srgb,var(--danger) 18%,transparent);color:var(--danger)}.badge.due-soon{background:color-mix(in srgb,var(--warn) 18%,transparent);color:var(--warn)}.badge.info{background:color-mix(in srgb,var(--accent) 18%,transparent);color:var(--accent)}
+.bill-row td:first-child{border-left:4px solid transparent}.bill-row.bill-paid td{background:color-mix(in srgb,var(--good) 7%,transparent)}.bill-row.bill-paid td:first-child{border-left-color:var(--good)}
+.bill-row.bill-unpaid td,.bill-row.bill-due-soon td,.bill-row.bill-overdue td{background:color-mix(in srgb,var(--danger) 7%,transparent)}.bill-row.bill-unpaid td:first-child,.bill-row.bill-due-soon td:first-child,.bill-row.bill-overdue td:first-child{border-left-color:var(--danger)}
+.bill-row .badge.unpaid{background:color-mix(in srgb,var(--danger) 18%,transparent);color:var(--danger)}.bill-row.bill-overdue td{background:color-mix(in srgb,var(--danger) 13%,transparent)}
+.actions .good{color:var(--good);border-color:color-mix(in srgb,var(--good) 45%,var(--line))}
+.kpi-card{text-decoration:none;color:var(--text)}.kpi-danger{border-color:color-mix(in srgb,var(--danger) 55%,var(--line))}.kpi-danger strong{color:var(--danger)}.kpi-good strong{color:var(--good)}
+.nav-count{display:inline-block;min-width:18px;padding:0 6px;border-radius:999px;background:var(--danger);color:#fff;font-size:11px;text-align:center;margin-left:4px}
+
+/* Telegram */
+.telegram-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:12px}.list-panel{padding:12px 14px;max-height:520px;overflow:auto}.list-panel h3{font-size:13px;margin:0 0 8px}.muted{color:var(--muted);font-weight:500}
+.list-row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--line)}.list-row:last-child{border-bottom:0}.list-row small{display:block;color:var(--muted);font-size:11px}
+.message-row{padding:9px 0;border-bottom:1px solid var(--line)}.message-row:last-child{border-bottom:0}.message-meta{display:flex;justify-content:space-between;gap:8px;font-size:12px}.message-meta span{color:var(--muted)}.message-text{margin-top:3px;white-space:normal;word-break:break-word}
+.filter-tabs{display:flex;gap:6px;flex-wrap:wrap}.filter-tabs a{padding:7px 10px;border-radius:8px;border:1px solid var(--line);background:var(--panel);color:var(--muted);text-decoration:none;font-weight:600}.filter-tabs a.active{color:var(--text);border-color:var(--accent)}
+.search-form input{border:1px solid var(--line);background:var(--panel2);color:var(--text);border-radius:8px;padding:8px 10px;min-width:240px}
+.button-link{border:1px solid var(--line);background:var(--panel2);color:var(--text);border-radius:8px;padding:5px 8px;font-size:12px;text-decoration:none}
+a.primary-button{text-decoration:none}
+.code-help{color:var(--muted);margin:10px 0 4px}.code-help code,.settings-note pre{background:var(--panel2);border:1px solid var(--line);border-radius:6px;padding:2px 5px;color:var(--text)}.settings-note pre{padding:10px;overflow:auto;font-size:12px;margin:6px 0}
+table.matrix{min-width:0}table.matrix td:not(:first-child),table.matrix th:not(:first-child){text-align:center}
+@media(max-width:980px){.telegram-grid{grid-template-columns:1fr}}
+@media(max-width:600px){.search-form input{min-width:0;width:100%}.section-heading{flex-wrap:wrap}.list-row{flex-direction:column;align-items:flex-start}}
