@@ -11,12 +11,13 @@ WORKDIR /var/www/html
 
 COPY app/public/ /var/www/html/
 COPY app/src/ /var/www/src/
+COPY app/bin/ /var/www/bin/
 COPY VERSION /var/www/VERSION
 COPY docker-entrypoint.sh /usr/local/bin/homelab-entrypoint
 
 RUN chmod +x /usr/local/bin/homelab-entrypoint \
     && mkdir -p /var/www/data \
-    && chown -R www-data:www-data /var/www/data /var/www/html /var/www/src
+    && chown -R www-data:www-data /var/www/data /var/www/html /var/www/src /var/www/bin
 
 EXPOSE 80
 
