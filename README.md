@@ -119,6 +119,21 @@ The `external_id` identifies the bill. Sending the same `external_id` again upda
 
 `GET /api/bills.php?status=unpaid` returns the bill list as JSON.
 
+## Show bills in Homarr
+
+Use Homarr (1.65 or newer) as your daily screen and let this app supply the bills. Homarr calls the API from its own container, so use the server's LAN IP, not `localhost`.
+
+1. In Homarr, open **Manage → Custom widgets → New**.
+   - URL: `http://SERVER_IP:8088/api/bills.php?status=unpaid` (drop `?status=unpaid` to include paid bills in green)
+   - Method: `GET`
+   - Auth: **Bearer**, API key = the API token from Settings
+   - Display type: **Custom JSX**, then paste [`homarr/bills-widget.jsx`](homarr/bills-widget.jsx)
+2. On your board, add a **Custom API** widget, select that definition, and set refresh to 60 seconds.
+
+Unpaid bills show red, bills due soon show orange, and paid bills show green. For a simple KPI tile, make a second definition with display type **Stat grid**: `$.summary.unpaid_total_text` (To pay), `$.summary.overdue_count` (Overdue), `$.summary.paid_this_month_text` (Paid this month), and `$.summary.telegram_new_users` (New Telegram users).
+
+To open the full dashboard from Homarr, add an **App** tile linking to `http://SERVER_IP:8088`, or an **iFrame** widget showing `http://SERVER_IP:8088/telegram.php`.
+
 ## Telegram
 
 1. Create a bot with **@BotFather** and paste its token in **Settings → Telegram & Discord**.

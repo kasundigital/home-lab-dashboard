@@ -156,6 +156,33 @@ function bill_public(array $bill): array
         'notes' => $bill['notes'],
         'source' => $bill['source'],
         'updated_at' => $bill['updated_at'],
+        // Display helpers for dashboards such as Homarr.
+        'state' => $state = bill_state($bill),
+        'state_label' => BILL_STATE_LABELS[$state],
+        'color' => $state === 'paid' ? 'green' : ($state === 'due-soon' ? 'orange' : 'red'),
+        'amount_text' => money((float)$bill['amount']),
+    ];
+}
+
+const BILL_STATE_LABELS = ['paid' => 'Paid', 'overdue' => 'Overdue', 'due-soon' => 'Due soon', 'unpaid' => 'To pay'];
+
+function bills_summary(): array
+{
+    $pdo = db();
+    $unpaid = bills_unpaid();
+    $unpaidTotal = array_sum(array_map(fn($b) => (float)$b['amount'], $unpaid));
+    $stmt = $pdo->prepare('SELECT COALESCE(SUM(amount), 0) FROM bills WHERE status = "paid" AND paid_date >= ?');
+    $stmt->execute([date('Y-m-01')]);
+    $paidThisMonth = (float)$stmt->fetchColumn();
+    return [
+        'unpaid_count' => count($unpaid),
+        'unpaid_total' => $unpaidTotal,
+        'unpaid_total_text' => money($unpaidTotal),
+        'overdue_count' => count(array_filter($unpaid, fn($b) => bill_state($b) === 'overdue')),
+        'paid_this_month' => $paidThisMonth,
+        'paid_this_month_text' => money($paidThisMonth),
+        'telegram_users' => (int)$pdo->query('SELECT COUNT(*) FROM telegram_users')->fetchColumn(),
+        'telegram_new_users' => (int)$pdo->query('SELECT COUNT(*) FROM telegram_users WHERE is_new = 1')->fetchColumn(),
     ];
 }
 

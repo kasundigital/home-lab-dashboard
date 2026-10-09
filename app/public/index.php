@@ -86,7 +86,7 @@ $telegramNewUsers = $pdo->query('SELECT * FROM telegram_users WHERE is_new = 1 O
 $telegramNewCount = (int) $pdo->query('SELECT COUNT(*) FROM telegram_users WHERE is_new = 1')->fetchColumn();
 $telegramMessages = $pdo->query('SELECT m.*, u.username, u.first_name, u.last_name, u.user_id FROM telegram_messages m
     JOIN telegram_users u ON u.user_id = m.user_id WHERE u.watched = 1 ORDER BY m.sent_at DESC, m.id DESC LIMIT 30')->fetchAll();
-$billStateLabels = ['paid' => 'Paid', 'overdue' => 'Overdue', 'due-soon' => 'Due soon', 'unpaid' => 'To pay'];
+$billStateLabels = BILL_STATE_LABELS;
 
 $servicesByCategory = [];
 foreach ($services as $service) {

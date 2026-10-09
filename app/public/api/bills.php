@@ -2,7 +2,7 @@
 declare(strict_types=1);
 require __DIR__ . '/../../src/api.php';
 
-// GET  /api/bills.php[?status=paid|unpaid]  -> list bills
+// GET  /api/bills.php[?status=paid|unpaid]  -> summary + bills (also used by Homarr Custom API widgets)
 // POST /api/bills.php  {bill} | [bill, ...] | {"bills": [...]}  -> create/update by external_id
 api_require_token();
 
@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     if ($status !== '' && !in_array($status, ['paid', 'unpaid'], true)) api_respond(400, ['ok' => false, 'error' => 'status must be paid or unpaid']);
     $stmt = db()->prepare('SELECT * FROM bills' . ($status !== '' ? ' WHERE status = ?' : '') . ' ORDER BY COALESCE(due_date, "9999-12-31"), id');
     $stmt->execute($status !== '' ? [$status] : []);
-    api_respond(200, ['ok' => true, 'bills' => array_map('bill_public', $stmt->fetchAll())]);
+    api_respond(200, ['ok' => true, 'summary' => bills_summary(), 'bills' => array_map('bill_public', $stmt->fetchAll())]);
 }
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') api_respond(405, ['ok' => false, 'error' => 'Use GET or POST']);
